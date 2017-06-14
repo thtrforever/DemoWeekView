@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HorizontalWeekCalendar</string>
+    <string name="blank" />
+    <string name="date_title_sunday">CN</string>
+    <string name="date_title_monday">T.2</string>
+    <string name="date_title_tuesday">T.3</string>
+    <string name="date_title_wednesday">T.4</string>
+    <string name="date_title_thursday">T.5</string>
+    <string name="date_title_friday">T.6</string>
+    <string name="date_title_saturday">T.7</string>
+</resources>
