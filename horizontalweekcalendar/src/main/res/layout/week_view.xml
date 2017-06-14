@@ -62,50 +62,51 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
+        android:orientation="horizontal"
         android:paddingBottom="5dp"
-        android:orientation="horizontal">
+        android:paddingTop="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvSundayTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:text="@string/date_title_sunday"
                 android:textColor="@android:color/holo_red_light"
-                android:text="@string/date_title_sunday"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvSundayDate"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:padding="3dp"
+                android:background="@drawable/bg_date_selected"
                 android:gravity="center"
-                android:textSize="14sp"
+                android:padding="3dp"
+                android:text="0"
                 android:textColor="@android:color/holo_red_light"
-                android:text="0"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvMondayDateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:text="@string/date_title_monday"
                 android:textColor="@android:color/black"
-                android:text="@string/date_title_monday"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvMondayDate"
@@ -113,25 +114,26 @@
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:padding="3dp"
-                android:textSize="14sp"
+                android:background="@drawable/bg_date_selected"
+                android:text="0"
                 android:textColor="@android:color/black"
-                android:text="0"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvTuesdayDateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:text="@string/date_title_tuesday"
                 android:textColor="@android:color/black"
-                android:text="@string/date_title_tuesday"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvTuesdayDate"
@@ -139,51 +141,53 @@
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:padding="3dp"
-                android:textSize="14sp"
+                android:background="@drawable/bg_date_selected"
+                android:text="0"
                 android:textColor="@android:color/black"
-                android:text="0"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvWednesdayDateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:text="@string/date_title_wednesday"
                 android:textColor="@android:color/black"
-                android:text="@string/date_title_wednesday"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvWednesdayDate"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:background="@drawable/bg_date_selected"
                 android:gravity="center"
                 android:padding="3dp"
-                android:textSize="14sp"
+                android:text="0"
                 android:textColor="@android:color/black"
-                android:text="0"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvThursdayDateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:text="@string/date_title_thursday"
                 android:textColor="@android:color/black"
-                android:text="@string/date_title_thursday"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvThursdayDate"
@@ -191,25 +195,26 @@
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:padding="3dp"
-                android:textSize="14sp"
+                android:background="@drawable/bg_date_selected"
+                android:text="0"
                 android:textColor="@android:color/black"
-                android:text="0"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvFridayDateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:text="@string/date_title_friday"
                 android:textColor="@android:color/black"
-                android:text="@string/date_title_friday"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvFridayDate"
@@ -217,25 +222,26 @@
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:padding="3dp"
-                android:textSize="14sp"
+                android:background="@drawable/bg_date_selected"
+                android:text="0"
                 android:textColor="@android:color/black"
-                android:text="0"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvSaturdayDateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:text="@string/date_title_saturday"
                 android:textColor="@android:color/holo_red_light"
-                android:text="@string/date_title_saturday"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvSaturdayDate"
@@ -243,9 +249,10 @@
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:padding="3dp"
-                android:textSize="14sp"
+                android:background="@drawable/bg_date_selected"
+                android:text="0"
                 android:textColor="@android:color/holo_red_light"
-                android:text="0"/>
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 
