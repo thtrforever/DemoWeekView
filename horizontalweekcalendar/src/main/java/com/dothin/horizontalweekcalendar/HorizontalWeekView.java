@@ -2,9 +2,15 @@ package com.dothin.horizontalweekcalendar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableContainer;
 import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.StateListDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.graphics.drawable.shapes.RectShape;
 import android.graphics.drawable.shapes.Shape;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -30,6 +36,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private SimpleDateFormat sdf;
     private Calendar inWeekCalendar;
     private Calendar selectedCalendar;
+    private StateListDrawable dateDrawable;
 
     private TextView tvDateDetails;
     private LinearLayout linPreviousWeek;
@@ -42,6 +49,8 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private TextView tvThursdayDate;
     private TextView tvFridayDate;
     private TextView tvSaturdayDate;
+
+    private int color;
 
     public HorizontalWeekView(Context context) {
         super(context);
@@ -67,12 +76,21 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void initVariables() {
-        final int color = Utilities.getThemeColor(context, R.attr.colorAccent);
-        Drawable dateDrawable = context.getResources().getDrawable(R.drawable.bg_date_selected);
-       // dateDrawable.
-        if(dateDrawable instanceof ShapeDrawable){
-           // ShapeDrawable shapeDrawable = (ShapeDrawable) background;
-        }
+        color = Utilities.getThemeColor(context, R.attr.colorAccent);
+        dateDrawable = new StateListDrawable();
+
+        ShapeDrawable defaultShape = new ShapeDrawable(new OvalShape());
+        defaultShape.getPaint().setColor(Color.TRANSPARENT);
+        dateDrawable.addState(new int[]{}, defaultShape);
+
+        ShapeDrawable selectedShape = new ShapeDrawable(new OvalShape());
+        selectedShape.getPaint().setColor(Color.RED);
+        dateDrawable.addState(new int[]{android.R.attr.state_selected}, selectedShape);
+
+        ShapeDrawable pressShape = new ShapeDrawable(new OvalShape());
+        pressShape.getPaint().setColor(Color.GRAY);
+        dateDrawable.addState(new int[]{android.R.attr.state_pressed}, pressShape);
+
     }
 
     private void initViews() {
@@ -88,17 +106,27 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
         tvSundayDate = (TextView) findViewById(R.id.tvSundayDate);
         tvSundayDate.setOnClickListener(this);
         tvMondayDate = (TextView) findViewById(R.id.tvMondayDate);
+        tvMondayDate.setOnClickListener(this);
         tvTuesdayDate = (TextView) findViewById(R.id.tvTuesdayDate);
         tvWednesdayDate = (TextView) findViewById(R.id.tvWednesdayDate);
         tvThursdayDate = (TextView) findViewById(R.id.tvThursdayDate);
         tvFridayDate = (TextView) findViewById(R.id.tvFridayDate);
         tvSaturdayDate = (TextView) findViewById(R.id.tvSaturdayDate);
 
+        //updateBackgroundWeekView();
+
         inWeekCalendar = Calendar.getInstance();
         selectedCalendar = Calendar.getInstance();
 
         updateCurrentDate(inWeekCalendar);
 
+    }
+
+    private void updateBackgroundWeekView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            tvThursdayDate.setBackground(dateDrawable);
+            tvMondayDate.setBackground(dateDrawable);
+        }
     }
 
     /**

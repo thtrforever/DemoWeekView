@@ -4,10 +4,11 @@
         <shape
             android:shape="oval">
             <solid
-                android:color="#666666"/>
+                android:color="@color/GREY_100"/>
         </shape>
     </item>
-    <item android:state_pressed="true">
+    <item
+        android:state_pressed="true">
         <shape
             android:shape="oval">
             <solid

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorAccent">#1C4011</color>
+
     <!-- Grey -->
     <color name="GREY_500">#9e9e9e</color>  <!-- Standard -->
 

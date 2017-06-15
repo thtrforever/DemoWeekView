@@ -1,6 +1,7 @@
 package com.dothin.horizontalweekcalendar;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -43,5 +44,16 @@ public class Utilities {
         final TypedValue value = new TypedValue();
         context.getTheme ().resolveAttribute (attributeColor, value, true);
         return value.data;
+    }
+
+    private int fetchAccentColor(Context mContext) {
+        TypedValue typedValue = new TypedValue();
+
+        TypedArray a = mContext.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorAccent });
+        int color = a.getColor(0, 0);
+
+        a.recycle();
+
+        return color;
     }
 }
