@@ -3,13 +3,9 @@ package com.dothin.horizontalweekcalendar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.graphics.drawable.shapes.RectShape;
-import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -29,6 +25,7 @@ import java.util.Locale;
 
 public class HorizontalWeekView extends LinearLayout implements View.OnClickListener {
     public static final String FORMAT_DATE_EEEE_MMMM_DD_YYYY = "MMMM, yyyy";
+
     private String colorOfSelectedDate;
 
     private Context context;
@@ -51,6 +48,12 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private TextView tvSaturdayDate;
 
     private int color;
+
+    private enum DateState {
+        NORMAL,
+        SELECTED,
+        SELECTED_ON_OTHER_WEEK
+    }
 
     public HorizontalWeekView(Context context) {
         super(context);
@@ -108,10 +111,15 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
         tvMondayDate = (TextView) findViewById(R.id.tvMondayDate);
         tvMondayDate.setOnClickListener(this);
         tvTuesdayDate = (TextView) findViewById(R.id.tvTuesdayDate);
+        tvTuesdayDate.setOnClickListener(this);
         tvWednesdayDate = (TextView) findViewById(R.id.tvWednesdayDate);
+        tvWednesdayDate.setOnClickListener(this);
         tvThursdayDate = (TextView) findViewById(R.id.tvThursdayDate);
+        tvThursdayDate.setOnClickListener(this);
         tvFridayDate = (TextView) findViewById(R.id.tvFridayDate);
+        tvFridayDate.setOnClickListener(this);
         tvSaturdayDate = (TextView) findViewById(R.id.tvSaturdayDate);
+        tvSaturdayDate.setOnClickListener(this);
 
         //updateBackgroundWeekView();
 
@@ -184,67 +192,87 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
 
     private void updateBackgroundSundayDate(Calendar sundayDate) {
         if(Utilities.compareDate(sundayDate, selectedCalendar) == 0){
-            // selected date
-            tvSundayDate.setSelected(true);
+            updateDateBackgroundState(tvSundayDate, DateState.SELECTED);
         } else {
-            tvSundayDate.setSelected(false);
+            updateDateBackgroundState(tvSundayDate, DateState.NORMAL);
         }
     }
 
     private void updateBackgroundMondayDate(Calendar mondayDate) {
         if(Utilities.compareDate(mondayDate, selectedCalendar) == 0){
-            // selected date
-            tvMondayDate.setSelected(true);
+            updateDateBackgroundState(tvMondayDate, DateState.SELECTED);
         } else {
-            tvMondayDate.setSelected(false);
+            updateDateBackgroundState(tvMondayDate, DateState.NORMAL);
         }
     }
 
     private void updateBackgroundTuesdayDate(Calendar tuesdayDate) {
         if(Utilities.compareDate(tuesdayDate, selectedCalendar) == 0){
-            // selected date
-            tvTuesdayDate.setSelected(true);
+            updateDateBackgroundState(tvTuesdayDate, DateState.SELECTED);
         } else {
-            tvTuesdayDate.setSelected(false);
+            updateDateBackgroundState(tvTuesdayDate, DateState.NORMAL);
         }
     }
 
     private void updateBackgroundWednesdayDate(Calendar wednesdayDate) {
         if(Utilities.compareDate(wednesdayDate, selectedCalendar) == 0){
-            // selected date
-            tvWednesdayDate.setSelected(true);
+            updateDateBackgroundState(tvWednesdayDate, DateState.SELECTED);
         } else {
-            tvWednesdayDate.setSelected(false);
+            updateDateBackgroundState(tvWednesdayDate, DateState.NORMAL);
         }
     }
 
     private void updateBackgroundThursdayDate(Calendar thursdayDate) {
         if(Utilities.compareDate(thursdayDate, selectedCalendar) == 0){
-            // selected date
-            tvThursdayDate.setSelected(true);
+            updateDateBackgroundState(tvThursdayDate, DateState.SELECTED);
         } else {
-            tvThursdayDate.setSelected(false);
+            updateDateBackgroundState(tvThursdayDate, DateState.NORMAL);
         }
     }
 
     private void updateBackgroundFridayDate(Calendar fridayDate) {
         if(Utilities.compareDate(fridayDate, selectedCalendar) == 0){
-            // selected date
-            tvFridayDate.setSelected(true);
+            updateDateBackgroundState(tvFridayDate, DateState.SELECTED);
         } else {
-            tvFridayDate.setSelected(false);
+            updateDateBackgroundState(tvFridayDate, DateState.NORMAL);
         }
     }
 
     private void updateBackgroundSaturdayDate(Calendar saturdayDate) {
         if(Utilities.compareDate(saturdayDate, selectedCalendar) == 0){
-            // selected date
-            tvSaturdayDate.setSelected(true);
+            updateDateBackgroundState(tvSaturdayDate, DateState.SELECTED);
         } else {
-            tvSaturdayDate.setSelected(false);
+            updateDateBackgroundState(tvSaturdayDate, DateState.NORMAL);
         }
     }
 
+
+    private void updateDateBackgroundState(TextView textView, DateState state){
+        switch (state){
+            case SELECTED:
+                setTextViewBackground(textView, R.drawable.bg_date_selected);
+                break;
+
+            case NORMAL:
+                setTextViewBackground(textView, R.drawable.bg_date_normal);
+                break;
+
+            case SELECTED_ON_OTHER_WEEK:
+                setTextViewBackground(textView, R.drawable.bg_date_select_on_other_week);
+                break;
+        }
+
+        // selected date
+
+    }
+
+    public void setTextViewBackground(TextView textView, int background){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textView.setBackground(context.getDrawable(background));
+        } else {
+            textView.setBackgroundDrawable(context.getResources().getDrawable(background));
+        }
+    }
 
     /**
      * get day_of_month in week
