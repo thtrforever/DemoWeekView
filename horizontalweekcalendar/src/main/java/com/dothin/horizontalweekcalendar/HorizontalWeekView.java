@@ -191,8 +191,10 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void updateBackgroundSundayDate(Calendar sundayDate) {
-        if(Utilities.compareDate(sundayDate, selectedCalendar) == 0){
+        if(Utilities.compareDate(sundayDate, selectedCalendar) == 0 ){
             updateDateBackgroundState(tvSundayDate, DateState.SELECTED);
+        } if(Utilities.compareDate(sundayDate, inWeekCalendar) == 0 ){
+            updateDateBackgroundState(tvSundayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvSundayDate, DateState.NORMAL);
         }
@@ -201,6 +203,8 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundMondayDate(Calendar mondayDate) {
         if(Utilities.compareDate(mondayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvMondayDate, DateState.SELECTED);
+        } else if(Utilities.compareDate(mondayDate, inWeekCalendar) ==0) {
+            updateDateBackgroundState(tvMondayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvMondayDate, DateState.NORMAL);
         }
@@ -209,6 +213,8 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundTuesdayDate(Calendar tuesdayDate) {
         if(Utilities.compareDate(tuesdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvTuesdayDate, DateState.SELECTED);
+        } if(Utilities.compareDate(tuesdayDate, inWeekCalendar) == 0 ){
+            updateDateBackgroundState(tvTuesdayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvTuesdayDate, DateState.NORMAL);
         }
@@ -217,6 +223,8 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundWednesdayDate(Calendar wednesdayDate) {
         if(Utilities.compareDate(wednesdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvWednesdayDate, DateState.SELECTED);
+        } if(Utilities.compareDate(wednesdayDate, inWeekCalendar) == 0 ){
+            updateDateBackgroundState(tvWednesdayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvWednesdayDate, DateState.NORMAL);
         }
@@ -225,6 +233,8 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundThursdayDate(Calendar thursdayDate) {
         if(Utilities.compareDate(thursdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvThursdayDate, DateState.SELECTED);
+        } if(Utilities.compareDate(thursdayDate, inWeekCalendar) == 0 ){
+            updateDateBackgroundState(tvThursdayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvThursdayDate, DateState.NORMAL);
         }
@@ -233,6 +243,8 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundFridayDate(Calendar fridayDate) {
         if(Utilities.compareDate(fridayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvFridayDate, DateState.SELECTED);
+        } if(Utilities.compareDate(fridayDate, inWeekCalendar) == 0 ){
+            updateDateBackgroundState(tvFridayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvFridayDate, DateState.NORMAL);
         }
@@ -241,6 +253,8 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundSaturdayDate(Calendar saturdayDate) {
         if(Utilities.compareDate(saturdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvSaturdayDate, DateState.SELECTED);
+        } if(Utilities.compareDate(saturdayDate, inWeekCalendar) == 0 ){
+            updateDateBackgroundState(tvSaturdayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvSaturdayDate, DateState.NORMAL);
         }
