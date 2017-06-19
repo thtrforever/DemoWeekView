@@ -1,5 +1,6 @@
 package com.dothin.demoweekview;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         horizontalWeekView.setOnDateSelected(new WeekView.OnDaySelected() {
             @Override
             public void onSelected(Calendar date) {
+                @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 try{
                     String strDateSelected = sdf.format(date.getTime());
@@ -30,5 +32,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Calendar fromCal = Calendar.getInstance();
+        fromCal.set(Calendar.DATE, 1);
+
+        Calendar toCal = Calendar.getInstance();
+        toCal.add(Calendar.MONTH, 1);
+
+        horizontalWeekView.setAvailableDate(fromCal, toCal);
     }
 }

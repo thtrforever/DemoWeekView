@@ -49,6 +49,15 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private TextView tvSaturdayDate;
 
     private WeekView.OnDaySelected onDateSelected;
+    private Calendar startDate;
+    private Calendar endDate;
+
+    public void setAvailableDate(Calendar startDate, Calendar endDate) {
+        this.startDate = (Calendar) startDate.clone();
+        this.endDate = (Calendar) endDate.clone();
+        updateWeekCalendar();
+    }
+
 
     private enum DateState {
         NORMAL,
@@ -189,6 +198,16 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void updateBackgroundSundayDate(Calendar sundayDate) {
+        if(null != startDate){
+            if(Utilities.compareDate(sundayDate, startDate) < 0){
+                tvSundayDate.setEnabled(true);
+                tvSundayDate.setClickable(false);
+            } else {
+                tvSundayDate.setEnabled(false);
+                tvSundayDate.setClickable(true);
+            }
+        }
+
         if(Utilities.compareDate(sundayDate, selectedCalendar) == 0 ){
             updateDateBackgroundState(tvSundayDate, DateState.SELECTED);
         } else if(Utilities.compareDate(sundayDate, inWeekCalendar) == 0 ){
@@ -199,6 +218,14 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void updateBackgroundMondayDate(Calendar mondayDate) {
+        if(null != startDate){
+            if(Utilities.compareDate(mondayDate, startDate) < 0){
+                tvMondayDate.setEnabled(true);
+            } else {
+                tvMondayDate.setEnabled(false);
+            }
+        }
+
         if(Utilities.compareDate(mondayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvMondayDate, DateState.SELECTED);
         } else if(Utilities.compareDate(mondayDate, inWeekCalendar) ==0) {
@@ -209,6 +236,14 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void updateBackgroundTuesdayDate(Calendar tuesdayDate) {
+        if(null != startDate){
+            if(Utilities.compareDate(tuesdayDate, startDate) < 0){
+                tvTuesdayDate.setEnabled(true);
+            } else {
+                tvTuesdayDate.setEnabled(false);
+            }
+        }
+
         if(Utilities.compareDate(tuesdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvTuesdayDate, DateState.SELECTED);
         } else if(Utilities.compareDate(tuesdayDate, inWeekCalendar) == 0 ){
@@ -219,6 +254,14 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void updateBackgroundWednesdayDate(Calendar wednesdayDate) {
+        if(null != startDate){
+            if(Utilities.compareDate(wednesdayDate, startDate) < 0){
+                tvWednesdayDate.setEnabled(true);
+            } else {
+                tvWednesdayDate.setEnabled(false);
+            }
+        }
+
         if(Utilities.compareDate(wednesdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvWednesdayDate, DateState.SELECTED);
         } else if(Utilities.compareDate(wednesdayDate, inWeekCalendar) == 0 ){
@@ -229,6 +272,14 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void updateBackgroundThursdayDate(Calendar thursdayDate) {
+        if(null != startDate){
+            if(Utilities.compareDate(thursdayDate, startDate) < 0){
+                tvThursdayDate.setEnabled(true);
+            } else {
+                tvThursdayDate.setEnabled(false);
+            }
+        }
+
         if(Utilities.compareDate(thursdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvThursdayDate, DateState.SELECTED);
         } else if(Utilities.compareDate(thursdayDate, inWeekCalendar) == 0 ){
@@ -239,6 +290,14 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void updateBackgroundFridayDate(Calendar fridayDate) {
+        if(null != startDate){
+            if(Utilities.compareDate(fridayDate, startDate) < 0){
+                tvFridayDate.setEnabled(true);
+            } else {
+                tvFridayDate.setEnabled(false);
+            }
+        }
+
         if(Utilities.compareDate(fridayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvFridayDate, DateState.SELECTED);
         } else if(Utilities.compareDate(fridayDate, inWeekCalendar) == 0 ){
@@ -249,6 +308,14 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void updateBackgroundSaturdayDate(Calendar saturdayDate) {
+        if(null != startDate){
+            if(Utilities.compareDate(saturdayDate, startDate) < 0){
+                tvSaturdayDate.setEnabled(true);
+            } else {
+                tvSaturdayDate.setEnabled(false);
+            }
+        }
+
         if(Utilities.compareDate(saturdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvSaturdayDate, DateState.SELECTED);
         } else if(Utilities.compareDate(saturdayDate, inWeekCalendar) == 0 ){

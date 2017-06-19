@@ -93,7 +93,7 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="0"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/text_weekend_state"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -120,7 +120,7 @@
                 android:padding="3dp"
                 android:background="@drawable/bg_date_normal"
                 android:text="0"
-                android:textColor="@android:color/black"
+                android:textColor="@color/text_weekday_state"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -148,7 +148,7 @@
                 android:padding="3dp"
                 android:background="@drawable/bg_date_normal"
                 android:text="0"
-                android:textColor="@android:color/black"
+                android:textColor="@color/text_weekday_state"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -175,7 +175,7 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="0"
-                android:textColor="@android:color/black"
+                android:textColor="@color/text_weekday_state"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -202,7 +202,7 @@
                 android:padding="3dp"
                 android:background="@drawable/bg_date_normal"
                 android:text="0"
-                android:textColor="@android:color/black"
+                android:textColor="@color/text_weekday_state"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -229,7 +229,7 @@
                 android:padding="3dp"
                 android:background="@drawable/bg_date_normal"
                 android:text="0"
-                android:textColor="@android:color/black"
+                android:textColor="@color/text_weekday_state"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -256,7 +256,7 @@
                 android:padding="3dp"
                 android:background="@drawable/bg_date_normal"
                 android:text="0"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/text_weekend_state"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
