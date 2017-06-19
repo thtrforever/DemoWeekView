@@ -8,6 +8,7 @@
     tools:context="com.dothin.demoweekview.MainActivity">
 
     <com.dothin.horizontalweekcalendar.HorizontalWeekView
+        android:id="@+id/weekViewCalendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"

@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_title_sunday"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/colorPrimary"
                 android:textSize="12sp" />
 
             <TextView
@@ -93,7 +93,7 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="0"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -245,7 +245,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_title_saturday"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/colorPrimary"
                 android:textSize="12sp" />
 
             <TextView
@@ -256,7 +256,7 @@
                 android:padding="3dp"
                 android:background="@drawable/bg_date_normal"
                 android:text="0"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

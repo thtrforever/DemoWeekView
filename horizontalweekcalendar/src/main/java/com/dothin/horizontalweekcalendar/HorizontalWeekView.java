@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,7 +48,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private TextView tvFridayDate;
     private TextView tvSaturdayDate;
 
-    private int color;
+    private WeekView.OnDaySelected onDateSelected;
 
     private enum DateState {
         NORMAL,
@@ -79,7 +80,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     }
 
     private void initVariables() {
-        color = Utilities.getThemeColor(context, R.attr.colorAccent);
+        int color = Utilities.getThemeColor(context, R.attr.colorAccent);
         dateDrawable = new StateListDrawable();
 
         ShapeDrawable defaultShape = new ShapeDrawable(new OvalShape());
@@ -126,21 +127,18 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
         inWeekCalendar = Calendar.getInstance();
         selectedCalendar = Calendar.getInstance();
 
-        updateCurrentDate(inWeekCalendar);
+        updateCurrentDate();
 
     }
 
-    private void updateBackgroundWeekView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            tvThursdayDate.setBackground(dateDrawable);
-            tvMondayDate.setBackground(dateDrawable);
-        }
+    public void setOnDateSelected(WeekView.OnDaySelected onDateSelected) {
+        this.onDateSelected = onDateSelected;
     }
 
     /**
      * get current date and update to inWeekCalendar
      */
-    private void updateCurrentDate(Calendar calendar) {
+    private void updateCurrentDate() {
         try {
             String localLang = Locale.getDefault().getLanguage();
             if(localLang.equals("vi")){
@@ -149,10 +147,10 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
                 sdf = new SimpleDateFormat(FORMAT_DATE_EEEE_MMMM_DD_YYYY, Locale.US);
             }
 
-            String strCurrentDate = sdf.format(calendar.getTime());
+            String strCurrentDate = sdf.format(inWeekCalendar.getTime());
             tvDateDetails.setText(strCurrentDate);
 
-            updateWeekCalendar(calendar);
+            updateWeekCalendar();
 
         } catch (Exception e){
             e.printStackTrace();
@@ -160,9 +158,9 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
 
     }
 
-    private void updateWeekCalendar(Calendar currentDateInWeek) {
+    private void updateWeekCalendar() {
         try {
-            Calendar mondayDate = getMondayOfWeek(currentDateInWeek);
+            Calendar mondayDate = getMondayOfWeek((Calendar) inWeekCalendar.clone());
             Calendar sunDayDate = getDateNumInWeek((Calendar) mondayDate.clone(), -1);
             Calendar tuesdayDate = getDateNumInWeek((Calendar) mondayDate.clone(), 1);
             Calendar wednesdayDate = getDateNumInWeek((Calendar) mondayDate.clone(), 2);
@@ -193,7 +191,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundSundayDate(Calendar sundayDate) {
         if(Utilities.compareDate(sundayDate, selectedCalendar) == 0 ){
             updateDateBackgroundState(tvSundayDate, DateState.SELECTED);
-        } if(Utilities.compareDate(sundayDate, inWeekCalendar) == 0 ){
+        } else if(Utilities.compareDate(sundayDate, inWeekCalendar) == 0 ){
             updateDateBackgroundState(tvSundayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvSundayDate, DateState.NORMAL);
@@ -213,7 +211,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundTuesdayDate(Calendar tuesdayDate) {
         if(Utilities.compareDate(tuesdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvTuesdayDate, DateState.SELECTED);
-        } if(Utilities.compareDate(tuesdayDate, inWeekCalendar) == 0 ){
+        } else if(Utilities.compareDate(tuesdayDate, inWeekCalendar) == 0 ){
             updateDateBackgroundState(tvTuesdayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvTuesdayDate, DateState.NORMAL);
@@ -223,7 +221,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundWednesdayDate(Calendar wednesdayDate) {
         if(Utilities.compareDate(wednesdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvWednesdayDate, DateState.SELECTED);
-        } if(Utilities.compareDate(wednesdayDate, inWeekCalendar) == 0 ){
+        } else if(Utilities.compareDate(wednesdayDate, inWeekCalendar) == 0 ){
             updateDateBackgroundState(tvWednesdayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvWednesdayDate, DateState.NORMAL);
@@ -233,7 +231,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundThursdayDate(Calendar thursdayDate) {
         if(Utilities.compareDate(thursdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvThursdayDate, DateState.SELECTED);
-        } if(Utilities.compareDate(thursdayDate, inWeekCalendar) == 0 ){
+        } else if(Utilities.compareDate(thursdayDate, inWeekCalendar) == 0 ){
             updateDateBackgroundState(tvThursdayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvThursdayDate, DateState.NORMAL);
@@ -243,7 +241,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundFridayDate(Calendar fridayDate) {
         if(Utilities.compareDate(fridayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvFridayDate, DateState.SELECTED);
-        } if(Utilities.compareDate(fridayDate, inWeekCalendar) == 0 ){
+        } else if(Utilities.compareDate(fridayDate, inWeekCalendar) == 0 ){
             updateDateBackgroundState(tvFridayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvFridayDate, DateState.NORMAL);
@@ -253,7 +251,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     private void updateBackgroundSaturdayDate(Calendar saturdayDate) {
         if(Utilities.compareDate(saturdayDate, selectedCalendar) == 0){
             updateDateBackgroundState(tvSaturdayDate, DateState.SELECTED);
-        } if(Utilities.compareDate(saturdayDate, inWeekCalendar) == 0 ){
+        } else if(Utilities.compareDate(saturdayDate, inWeekCalendar) == 0 ){
             updateDateBackgroundState(tvSaturdayDate, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
             updateDateBackgroundState(tvSaturdayDate, DateState.NORMAL);
@@ -275,9 +273,6 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
                 setTextViewBackground(textView, R.drawable.bg_date_select_on_other_week);
                 break;
         }
-
-        // selected date
-
     }
 
     public void setTextViewBackground(TextView textView, int background){
@@ -304,11 +299,62 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
         int i = view.getId();
         if (i == R.id.linPreviousWeek) {
             inWeekCalendar.add(Calendar.DATE, -7);
-            updateCurrentDate(inWeekCalendar);
+            updateCurrentDate();
         } else if (i == R.id.linNextWeek){
             inWeekCalendar.add(Calendar.DATE, 7);
-            updateCurrentDate(inWeekCalendar);
+            updateCurrentDate();
+        } else if (i == R.id.tvSundayDate){
+            updateSelectedDate(Calendar.SUNDAY);
+        } else if (i == R.id.tvMondayDate){
+            updateSelectedDate(Calendar.MONDAY);
+        } else if (i == R.id.tvTuesdayDate) {
+            updateSelectedDate(Calendar.TUESDAY);
+        } else if (i == R.id.tvWednesdayDate) {
+            updateSelectedDate(Calendar.WEDNESDAY);
+        } else if (i == R.id.tvThursdayDate) {
+            updateSelectedDate(Calendar.THURSDAY);
+        } else if (i == R.id.tvFridayDate) {
+            updateSelectedDate(Calendar.FRIDAY);
+        } else if (i == R.id.tvSaturdayDate) {
+            updateSelectedDate(Calendar.SATURDAY);
         }
+    }
+
+    private void updateSelectedDate(int day) {
+        Calendar mondayOfWeek = getMondayOfWeek((Calendar) inWeekCalendar.clone());
+        switch (day){
+            case Calendar.SUNDAY:
+                mondayOfWeek.add(Calendar.DATE, -1);
+                break;
+
+            case Calendar.TUESDAY:
+                mondayOfWeek.add(Calendar.DATE, 1);
+                break;
+
+            case Calendar.WEDNESDAY:
+                mondayOfWeek.add(Calendar.DATE, 2);
+                break;
+
+            case Calendar.THURSDAY:
+                mondayOfWeek.add(Calendar.DATE, 3);
+                break;
+
+            case Calendar.FRIDAY:
+                mondayOfWeek.add(Calendar.DATE, 4);
+                break;
+
+            case Calendar.SATURDAY:
+                mondayOfWeek.add(Calendar.DATE, 5);
+                break;
+        }
+
+        selectedCalendar = (Calendar) mondayOfWeek.clone();
+        inWeekCalendar = (Calendar) mondayOfWeek.clone();
+
+        if(null != onDateSelected){
+            onDateSelected.onSelected((Calendar) selectedCalendar.clone());
+        }
+        updateCurrentDate();
     }
 
     /**
@@ -325,19 +371,4 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
         }
         return dateInWeek;
     }
-
-    /**
-     * increase days in inWeekCalendar
-     *
-     * @param date date input
-     * @param days date input
-     * @return
-     */
-    public static Date addDays(Date date, int days) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DATE, days); // minus number would decrement the days
-        return cal.getTime();
-    }
-
 }
