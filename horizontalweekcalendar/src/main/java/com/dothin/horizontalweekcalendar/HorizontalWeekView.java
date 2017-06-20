@@ -55,6 +55,7 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
     public void setAvailableDate(Calendar startDate, Calendar endDate) {
         this.startDate = (Calendar) startDate.clone();
         this.endDate = (Calendar) endDate.clone();
+
         updateWeekCalendar();
     }
 
@@ -177,13 +178,13 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
             Calendar fridayDate = getDateNumInWeek((Calendar) mondayDate.clone(), 4);
             Calendar saturdayDate = getDateNumInWeek((Calendar) mondayDate.clone(), 5);
 
-            updateBackgroundSundayDate(sunDayDate);
-            updateBackgroundMondayDate(mondayDate);
-            updateBackgroundTuesdayDate(tuesdayDate);
-            updateBackgroundWednesdayDate(wednesdayDate);
-            updateBackgroundThursdayDate(thursdayDate);
-            updateBackgroundFridayDate(fridayDate);
-            updateBackgroundSaturdayDate(saturdayDate);
+            updateBackgroundDateOnWeek(tvSundayDate, sunDayDate);
+            updateBackgroundDateOnWeek(tvMondayDate, mondayDate);
+            updateBackgroundDateOnWeek(tvTuesdayDate, tuesdayDate);
+            updateBackgroundDateOnWeek(tvWednesdayDate, wednesdayDate);
+            updateBackgroundDateOnWeek(tvThursdayDate, thursdayDate);
+            updateBackgroundDateOnWeek(tvFridayDate, fridayDate);
+            updateBackgroundDateOnWeek(tvSaturdayDate, saturdayDate);
 
             tvMondayDate.setText(String.valueOf(mondayDate.get(Calendar.DAY_OF_MONTH)));
             tvSundayDate.setText(String.valueOf(sunDayDate.get(Calendar.DAY_OF_MONTH)));
@@ -197,134 +198,57 @@ public class HorizontalWeekView extends LinearLayout implements View.OnClickList
         }
     }
 
-    private void updateBackgroundSundayDate(Calendar sundayDate) {
-        if(null != startDate){
-            if(Utilities.compareDate(sundayDate, startDate) < 0){
-                tvSundayDate.setEnabled(true);
-                tvSundayDate.setClickable(false);
+
+    private void updateBackgroundDateOnWeek(TextView textView,Calendar date) {
+        if(null != startDate && null != endDate){
+            if(Utilities.compareDate(date, startDate) < 0
+                    || Utilities.compareDate(date, endDate) > 0){
+                textView.setEnabled(false);
+                textView.setTextColor(getResources().getColor(R.color.GREY_200));
             } else {
-                tvSundayDate.setEnabled(false);
-                tvSundayDate.setClickable(true);
+                textView.setEnabled(true);
+                if(textView.getId() == R.id.tvSundayDate || textView.getId() == R.id.tvSaturdayDate){
+                    textView.setTextColor(getResources().getColor(R.color.colorPrimary));
+                } else {
+                    textView.setTextColor(Color.BLACK);
+                }
+            }
+        } else if(null != startDate){
+            if(Utilities.compareDate(date, startDate) < 0){
+                textView.setEnabled(false);
+                textView.setTextColor(getResources().getColor(R.color.GREY_200));
+
+            } else {
+                textView.setEnabled(true);
+                if(textView.getId() == R.id.tvSundayDate || textView.getId() == R.id.tvSaturdayDate){
+                    textView.setTextColor(getResources().getColor(R.color.colorPrimary));
+                } else {
+                    textView.setTextColor(Color.BLACK);
+                }
+            }
+        } else if(null != endDate){
+            if(Utilities.compareDate(date, endDate) > 0){
+                textView.setEnabled(false);
+                textView.setTextColor(getResources().getColor(R.color.GREY_200));
+
+            } else {
+                textView.setEnabled(true);
+                if(textView.getId() == R.id.tvSundayDate || textView.getId() == R.id.tvSaturdayDate){
+                    textView.setTextColor(getResources().getColor(R.color.colorPrimary));
+                } else {
+                    textView.setTextColor(Color.BLACK);
+                }
             }
         }
 
-        if(Utilities.compareDate(sundayDate, selectedCalendar) == 0 ){
-            updateDateBackgroundState(tvSundayDate, DateState.SELECTED);
-        } else if(Utilities.compareDate(sundayDate, inWeekCalendar) == 0 ){
-            updateDateBackgroundState(tvSundayDate, DateState.SELECTED_ON_OTHER_WEEK);
+        if(Utilities.compareDate(date, selectedCalendar) == 0 ){
+            updateDateBackgroundState(textView, DateState.SELECTED);
+        } else if(Utilities.compareDate(date, inWeekCalendar) == 0 ){
+            updateDateBackgroundState(textView, DateState.SELECTED_ON_OTHER_WEEK);
         } else {
-            updateDateBackgroundState(tvSundayDate, DateState.NORMAL);
+            updateDateBackgroundState(textView, DateState.NORMAL);
         }
     }
-
-    private void updateBackgroundMondayDate(Calendar mondayDate) {
-        if(null != startDate){
-            if(Utilities.compareDate(mondayDate, startDate) < 0){
-                tvMondayDate.setEnabled(true);
-            } else {
-                tvMondayDate.setEnabled(false);
-            }
-        }
-
-        if(Utilities.compareDate(mondayDate, selectedCalendar) == 0){
-            updateDateBackgroundState(tvMondayDate, DateState.SELECTED);
-        } else if(Utilities.compareDate(mondayDate, inWeekCalendar) ==0) {
-            updateDateBackgroundState(tvMondayDate, DateState.SELECTED_ON_OTHER_WEEK);
-        } else {
-            updateDateBackgroundState(tvMondayDate, DateState.NORMAL);
-        }
-    }
-
-    private void updateBackgroundTuesdayDate(Calendar tuesdayDate) {
-        if(null != startDate){
-            if(Utilities.compareDate(tuesdayDate, startDate) < 0){
-                tvTuesdayDate.setEnabled(true);
-            } else {
-                tvTuesdayDate.setEnabled(false);
-            }
-        }
-
-        if(Utilities.compareDate(tuesdayDate, selectedCalendar) == 0){
-            updateDateBackgroundState(tvTuesdayDate, DateState.SELECTED);
-        } else if(Utilities.compareDate(tuesdayDate, inWeekCalendar) == 0 ){
-            updateDateBackgroundState(tvTuesdayDate, DateState.SELECTED_ON_OTHER_WEEK);
-        } else {
-            updateDateBackgroundState(tvTuesdayDate, DateState.NORMAL);
-        }
-    }
-
-    private void updateBackgroundWednesdayDate(Calendar wednesdayDate) {
-        if(null != startDate){
-            if(Utilities.compareDate(wednesdayDate, startDate) < 0){
-                tvWednesdayDate.setEnabled(true);
-            } else {
-                tvWednesdayDate.setEnabled(false);
-            }
-        }
-
-        if(Utilities.compareDate(wednesdayDate, selectedCalendar) == 0){
-            updateDateBackgroundState(tvWednesdayDate, DateState.SELECTED);
-        } else if(Utilities.compareDate(wednesdayDate, inWeekCalendar) == 0 ){
-            updateDateBackgroundState(tvWednesdayDate, DateState.SELECTED_ON_OTHER_WEEK);
-        } else {
-            updateDateBackgroundState(tvWednesdayDate, DateState.NORMAL);
-        }
-    }
-
-    private void updateBackgroundThursdayDate(Calendar thursdayDate) {
-        if(null != startDate){
-            if(Utilities.compareDate(thursdayDate, startDate) < 0){
-                tvThursdayDate.setEnabled(true);
-            } else {
-                tvThursdayDate.setEnabled(false);
-            }
-        }
-
-        if(Utilities.compareDate(thursdayDate, selectedCalendar) == 0){
-            updateDateBackgroundState(tvThursdayDate, DateState.SELECTED);
-        } else if(Utilities.compareDate(thursdayDate, inWeekCalendar) == 0 ){
-            updateDateBackgroundState(tvThursdayDate, DateState.SELECTED_ON_OTHER_WEEK);
-        } else {
-            updateDateBackgroundState(tvThursdayDate, DateState.NORMAL);
-        }
-    }
-
-    private void updateBackgroundFridayDate(Calendar fridayDate) {
-        if(null != startDate){
-            if(Utilities.compareDate(fridayDate, startDate) < 0){
-                tvFridayDate.setEnabled(true);
-            } else {
-                tvFridayDate.setEnabled(false);
-            }
-        }
-
-        if(Utilities.compareDate(fridayDate, selectedCalendar) == 0){
-            updateDateBackgroundState(tvFridayDate, DateState.SELECTED);
-        } else if(Utilities.compareDate(fridayDate, inWeekCalendar) == 0 ){
-            updateDateBackgroundState(tvFridayDate, DateState.SELECTED_ON_OTHER_WEEK);
-        } else {
-            updateDateBackgroundState(tvFridayDate, DateState.NORMAL);
-        }
-    }
-
-    private void updateBackgroundSaturdayDate(Calendar saturdayDate) {
-        if(null != startDate){
-            if(Utilities.compareDate(saturdayDate, startDate) < 0){
-                tvSaturdayDate.setEnabled(true);
-            } else {
-                tvSaturdayDate.setEnabled(false);
-            }
-        }
-
-        if(Utilities.compareDate(saturdayDate, selectedCalendar) == 0){
-            updateDateBackgroundState(tvSaturdayDate, DateState.SELECTED);
-        } else if(Utilities.compareDate(saturdayDate, inWeekCalendar) == 0 ){
-            updateDateBackgroundState(tvSaturdayDate, DateState.SELECTED_ON_OTHER_WEEK);
-        } else {
-            updateDateBackgroundState(tvSaturdayDate, DateState.NORMAL);
-        }
-    }
-
 
     private void updateDateBackgroundState(TextView textView, DateState state){
         switch (state){
